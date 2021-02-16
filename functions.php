@@ -65,8 +65,8 @@ function peerboard_base64url_encode($data)
   return rtrim($url, '=');
 }
 
-function peerboard_is_embed_page($prefix) {
-  return (substr($_SERVER['REQUEST_URI'],0,strlen($prefix) + 1) == "/" . $prefix);
+function peerboard_is_embed_page() {
+  return ( get_the_ID() == get_option( 'peerboard_post' ) );
 }
 
 function peerboard_get_tail_path($prefix) {

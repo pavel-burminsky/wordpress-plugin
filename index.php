@@ -43,7 +43,7 @@ add_action( 'init', function() {
 
 add_filter('the_content', function( $content ) {
 	global $peerboard_options;
-	if (peerboard_is_embed_page($peerboard_options['prefix'])) {
+	if (peerboard_is_embed_page()) {
 		if (substr( get_site_url(), 0, 5 ) === "http:" && getenv("PEERBOARD_ENV") !== 'local') {
 			$content = "<div id='peerboard-forum' class='disabled'>
 				Hello, because we are providing full hosting for our boards - we don't serve it for unsecure protocols, such a HTTP.
@@ -140,7 +140,7 @@ function peerboard_get_script_settings($peerboard_options) {
 
 add_action( 'wp_enqueue_scripts', function() {
   global $peerboard_options;
-	if (peerboard_is_embed_page($peerboard_options['prefix'])) {
+	if (peerboard_is_embed_page()) {
     wp_register_style( 'peerboard_integration_styles', plugin_dir_url(__FILE__)."/static/style.css", array(), '0.0.5' );
   	wp_enqueue_style( 'peerboard_integration_styles' );
 
@@ -151,7 +151,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 add_filter('request', function( array $query_vars ) {
 	global $peerboard_options;
-	if (peerboard_is_embed_page($peerboard_options['prefix'])) {
+	if (peerboard_is_embed_page()) {
 		$query_vars = array("page_id" => get_option("peerboard_post"));
 		unset($query_vars['pagename']);
 	}
